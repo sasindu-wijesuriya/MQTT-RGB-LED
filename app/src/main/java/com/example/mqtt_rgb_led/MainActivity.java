@@ -12,26 +12,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,22 +36,27 @@ public class MainActivity extends AppCompatActivity {
             if (result.getResultCode() == RESULT_OK) {
                 Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                 try {
-                    GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
+                    GoogleSignInAccount signInAccount = accountTask.getResult(com.google.android.gms.common.api.ApiException.class);
                     AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
                     auth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                auth = FirebaseAuth.getInstance();
-                                name.setText(auth.getCurrentUser().getDisplayName());
-                                mail.setText(auth.getCurrentUser().getEmail());
-                                Toast.makeText(MainActivity.this, "Signed in success", Toast.LENGTH_SHORT).show();
+                                String userEmail = auth.getCurrentUser().getEmail();
+                                String userName = userEmail.split("@")[0]; // Get username before '@' sign
+                                userName = userName.replace(".", "-");
+                                userName = userName.replace("#", "-");
+                                userName = userName.replace("$", "-");
+                                userName = userName.replace("[", "-");
+                                userName = userName.replace("]", "-");
+                                Toast.makeText(MainActivity.this, "Sign in Success with name : " + userName, Toast.LENGTH_SHORT).show();
+                                openDeviceListActivity(userName);
                             } else {
                                 Toast.makeText(MainActivity.this, "Sign in failed : " + task.getException(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                } catch (ApiException e) {
+                } catch (com.google.android.gms.common.api.ApiException e) {
                     e.printStackTrace();
                 }
             }
@@ -72,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseApp.initializeApp(this);
         name = findViewById(R.id.nameTV);
         mail = findViewById(R.id.mailTV);
 
@@ -94,4 +90,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void openDeviceListActivity(String userName) {
+        Intent intent = new Intent(MainActivity.this, DeviceListActivity.class);
+        intent.putExtra("USERNAME", userName);
+        startActivity(intent);
+        finish();
+    }
 }
