@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "412753916341",
+    "firebase_url": "https://mqtt-rgb-led-flutter-app-default-rtdb.firebaseio.com",
+    "project_id": "mqtt-rgb-led-flutter-app",
+    "storage_bucket": "mqtt-rgb-led-flutter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412753916341:android:ae07b3f8508d19f0b9e9fc",
+        "android_client_info": {
+          "package_name": "com.example.mqtt_rgb_led"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412753916341-t2tqj41gufsoinm4tmskn3uejj469qti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANBNyjN7SUs67H3YgG1vsyHCG2I0ILh2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412753916341-00mop7dsgjgq2rn09af7k4l83v1e39b1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "412753916341-jdlo147lraps3b565qs8ra5r19tjtgcc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mqttTestapp1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412753916341:android:bed8caf161d04ef2b9e9fc",
+        "android_client_info": {
+          "package_name": "com.example.mqtt_testapp1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412753916341-3l1efgoqigmpakr2utrj56v5hb2v8v3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mqtt_testapp1",
+            "certificate_hash": "5ea1b6244318696827d25b50013b72d816bf191b"
+          }
+        },
+        {
+          "client_id": "412753916341-t2tqj41gufsoinm4tmskn3uejj469qti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANBNyjN7SUs67H3YgG1vsyHCG2I0ILh2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412753916341-00mop7dsgjgq2rn09af7k4l83v1e39b1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "412753916341-jdlo147lraps3b565qs8ra5r19tjtgcc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mqttTestapp1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
