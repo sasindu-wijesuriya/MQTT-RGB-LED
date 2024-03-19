@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/editTextDevicePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Device Password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etSSIDLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPasswordLayout"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextSSID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Wi-Fi SSID"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etWifiPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:passwordToggleEnabled="true"
+        android:layout_below="@id/etSSIDLayout"
+        >
+
+
+        <EditText
+            android:id="@+id/editTextWiFiPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Wi-Fi Password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonAddDevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Device"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/etWifiPasswordLayout"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonAddDevice"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
