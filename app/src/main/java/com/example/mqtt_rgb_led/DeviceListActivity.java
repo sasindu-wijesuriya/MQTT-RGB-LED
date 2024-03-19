@@ -2,8 +2,14 @@ package com.example.mqtt_rgb_led;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,6 +38,9 @@ public class DeviceListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         listView = findViewById(R.id.LVDevices);
         deviceList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, deviceList);
@@ -47,13 +56,8 @@ public class DeviceListActivity extends AppCompatActivity {
         }
 
         String userName = user.getEmail().split("@")[0]; // Get username before '@' sign
-        userName = userName.replace(".", "-");
-        userName = userName.replace("#", "-");
-        userName = userName.replace("$", "-");
-        userName = userName.replace("[", "-");
-        userName = userName.replace("]", "-");
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userName).child("devices");
+        String sanitizedUserName = sanitizeUserName(userName);
+        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(sanitizedUserName).child("devices");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,5 +75,44 @@ public class DeviceListActivity extends AppCompatActivity {
                 Toast.makeText(DeviceListActivity.this, "Failed to fetch devices: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Add click listener to the ListView items
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedDevice = deviceList.get(position);
+                String mqttTopic = "device/" + selectedDevice + "/user/" + sanitizedUserName;
+                Toast.makeText(DeviceListActivity.this, "MQTT Topic: " + mqttTopic, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Helper method to sanitize the userName
+    private String sanitizeUserName(String userName) {
+        return userName.replace(".", "-")
+                .replace("#", "-")
+                .replace("$", "-")
+                .replace("[", "-")
+                .replace("]", "-");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_device_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_add_device) {
+            // Open AddDeviceActivity when the "Add Device" button is clicked
+            Intent intent = new Intent(this, AddDeviceActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
