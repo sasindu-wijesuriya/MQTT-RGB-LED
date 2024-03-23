@@ -33,6 +33,8 @@
         <activity android:name=".DeviceListActivity" />
         <activity android:name=".DeviceColorActivity" />
         <activity android:name=".AddDeviceActivity" />
+        <activity android:name=".SelectedDeviceColorActivity"/>
+
 
     </application>
 

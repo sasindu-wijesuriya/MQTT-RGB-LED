@@ -83,6 +83,10 @@ public class DeviceListActivity extends AppCompatActivity {
                 String selectedDevice = deviceList.get(position);
                 String mqttTopic = "device/" + selectedDevice + "/user/" + sanitizedUserName;
                 Toast.makeText(DeviceListActivity.this, "MQTT Topic: " + mqttTopic, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(DeviceListActivity.this, SelectedDeviceColorActivity.class);
+                intent.putExtra("mqttTopic", mqttTopic);
+                startActivity(intent);
             }
         });
     }
