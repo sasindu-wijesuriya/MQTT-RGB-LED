@@ -3,6 +3,9 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
+
+
 android {
     namespace = "com.example.mqtt_rgb_led"
     compileSdk = 34
@@ -48,4 +51,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation ("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0")
+    implementation ("com.github.yukuku:ambilwarna:2.0.1")
+
+
 }

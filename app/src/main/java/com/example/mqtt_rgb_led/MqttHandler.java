@@ -13,6 +13,13 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttHandler {
 
+    public interface MqttMessageListener {
+        void onMessageReceived(String message);
+    }
+
+    private MqttMessageListener messageListener;
+
+
     private MqttClient client;
 
     public void connect(String brokerUrl, String clientId) {
@@ -33,7 +40,11 @@ public class MqttHandler {
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     String received_msg = new String(message.getPayload());
                     System.out.println(received_msg);
+                    if (messageListener != null) {
+                        messageListener.onMessageReceived(received_msg);
+                    }
                 }
+
 
                 public void connectionLost(Throwable cause) {
                     System.out.println("connectionLost: " + cause.getMessage());
@@ -51,6 +62,10 @@ public class MqttHandler {
         }
     }
 
+    public void setMessageListener(MqttMessageListener listener) {
+        this.messageListener = listener;
+    }
+
     public void disconnect() {
         try {
             client.disconnect();
@@ -62,6 +77,7 @@ public class MqttHandler {
     public void publish(String topic, String message) {
         try {
             MqttMessage mqttMessage = new MqttMessage(message.getBytes());
+            mqttMessage.setRetained(true);
             client.publish(topic, mqttMessage);
         } catch (MqttException e) {
             e.printStackTrace();
